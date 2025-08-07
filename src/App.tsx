@@ -145,10 +145,13 @@ function App() {
     }));
 
     try {
+      // For new chats (no messages yet, excluding the user message we just added), don't send session_id
+      const isFirstMessage = chatState.messages.length === 0;
+
       const response = await chatApi.sendMessage({
         message: messageContent,
         user_id: authState.userId,
-        session_id: chatState.sessionId || undefined,
+        session_id: isFirstMessage ? undefined : (chatState.sessionId || undefined),
         agent_type: chatState.selectedAgent,
       });
 

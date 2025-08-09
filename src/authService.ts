@@ -41,7 +41,7 @@ export const authService = {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           user_id: userId,
-          redirect_uri: `${window.location.origin}/auth/callback`
+          redirect_uri: `${window.location.origin}/auth/google/callback`
         })
       });
 

@@ -3,6 +3,7 @@ import Header from './components/Header';
 import Sidebar from './components/Sidebar';
 import ChatArea from './components/ChatArea';
 import AuthComponent from './components/AuthComponent';
+import AuthCallback from './components/AuthCallback';
 import { ChatState, Message, AuthState } from './types';
 import { generateId, chatApi } from './utils';
 import { authService } from './authService';
@@ -36,7 +37,7 @@ function App() {
     const code = urlParams.get('code');
     const state = urlParams.get('state');
 
-    if (code && state && window.location.pathname === '/auth/callback') {
+    if (code && state && window.location.pathname === '/auth/google/callback') {
       handleAuthCallback(code, state);
     }
   }, []);
@@ -184,6 +185,11 @@ function App() {
       }));
     }
   };
+
+  // If we're on the callback route, show the callback component
+  if (window.location.pathname === '/auth/google/callback') {
+    return <AuthCallback />;
+  }
 
   // Show authentication component if not authenticated
   if (!authState.isAuthenticated) {

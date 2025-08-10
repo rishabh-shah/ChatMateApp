@@ -3,7 +3,8 @@ import { generateId } from './utils';
 const BASE_URL = process.env.REACT_APP_BACKEND_URL || 'http://localhost:8000';
 
 export interface AuthStatus {
-  is_authenticated: boolean;
+  is_authenticated?: boolean;
+  is_authorized?: boolean;  // Add support for backend's field name
   user_id?: string;
   email?: string;
   name?: string;

@@ -58,6 +58,24 @@ function App() {
     initializeNewChat();
   };
 
+  const handleLogout = () => {
+    // Clear authentication state
+    setAuthState({
+      isAuthenticated: false,
+      userId: authService.getUserId(), // Generate new user ID
+      isCheckingAuth: false,
+      authError: null,
+    });
+
+    // Clear user session from localStorage
+    authService.clearUserSession();
+
+    // Reset chat state
+    initializeNewChat();
+
+    console.log('User logged out successfully');
+  };
+
   // Check authentication on app load
   useEffect(() => {
     const checkAuth = async () => {
@@ -222,7 +240,11 @@ function App() {
 
   return (
     <div className="App">
-      <Header />
+      <Header
+        userName={authState.userName}
+        userEmail={authState.userEmail}
+        onLogout={handleLogout}
+      />
       <Sidebar onNewChat={initializeNewChat} />
       <ChatArea
         selectedAgent={chatState.selectedAgent}
